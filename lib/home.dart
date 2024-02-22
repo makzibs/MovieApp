@@ -73,7 +73,8 @@ class HomePageState extends State<HomePage> {
                   },
                   options: CarouselOptions(
                     height: size.height * 0.45,
-                    aspectRatio: 16 / 9,
+                    enlargeFactor: 0.00,
+                    // aspectRatio: 12 / 2,
                     viewportFraction: 0.8,
                     initialPage: 0,
                     enableInfiniteScroll: true,

@@ -54,7 +54,7 @@ class _DemoPageState extends State<DetailPage> {
         //crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            color: Color(0xFF818FB4),
+            color: Color(0xFF176B87),
             height: size.height * 0.1,
             child: Padding(
               padding: const EdgeInsets.only(top: 35, left: 20),
@@ -220,7 +220,7 @@ class _DemoPageState extends State<DetailPage> {
                   height: 40,
                   width: 10,
                   decoration: BoxDecoration(
-                    color: Color(0xFF070F2B),
+                    color: Color(0xFF176B87),
                     borderRadius: BorderRadius.circular(5),
                   ),
                 ),
