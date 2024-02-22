@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:your_movie_app/models/movie.dart';
+import 'package:your_movie_app/services/get_movies.dart';
 import 'package:your_movie_app/widgets/search_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,16 +31,31 @@ movingPoster() {
 }
 
 class HomePageState extends State<HomePage> {
+  late Future<Movie?> _futuremoviesdata;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getfuturemoviesdata();
+  }
+
+  getfuturemoviesdata() {
+    _futuremoviesdata = MovieService.fetchMovies();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color(0xFFB5C0D0),
+      backgroundColor: Color(0xFFEEF5FF),
       appBar: AppBar(
         titleSpacing: 0,
-        backgroundColor: Color(0xFFB5C0D0),
-        toolbarHeight: 80,
-        title: Container(
+        backgroundColor: Color(0xFFEEF5FF),
+        toolbarHeight: 60,
+        title: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 32,
+          ),
           child: SearchWidget(
             text: "Search",
           ),
@@ -54,10 +71,10 @@ class HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Now Playing",
+                "Now Trending",
                 style: TextStyle(
                     fontSize: 24,
-                    color: Colors.white,
+                    color: Color(0xFF070F2B),
                     fontWeight: FontWeight.bold),
               ),
               SizedBox(
@@ -94,7 +111,7 @@ class HomePageState extends State<HomePage> {
                     width: 70,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.white,
+                        color: Color(0xFF070F2B),
                         width: 2,
                       ),
                       borderRadius: BorderRadius.circular(5),
@@ -140,7 +157,7 @@ class HomePageState extends State<HomePage> {
                     "Crime,",
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.white,
+                      color: Color(0xFF070F2B),
                     ),
                   ),
                   SizedBox(
@@ -150,7 +167,7 @@ class HomePageState extends State<HomePage> {
                     "Drama,",
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.white,
+                      color: Color(0xFF070F2B),
                     ),
                   ),
                   SizedBox(
@@ -160,7 +177,7 @@ class HomePageState extends State<HomePage> {
                     "Thriller",
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.white,
+                      color: Color(0xFF070F2B),
                     ),
                   ),
                 ],

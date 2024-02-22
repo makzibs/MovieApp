@@ -48,7 +48,7 @@ class _DemoPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Container(
-      color: Color(0xFFB5C0D0),
+      color: Color(0xFFEEF5FF),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         //crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,7 +92,7 @@ class _DemoPageState extends State<DetailPage> {
                     "Joker",
                     style: TextStyle(
                         fontSize: 36,
-                        color: Colors.white,
+                        color: Color(0xFF070F2B),
                         fontWeight: FontWeight.bold),
                   ),
                   Row(
@@ -156,7 +156,7 @@ class _DemoPageState extends State<DetailPage> {
                   "Spy",
                   style: TextStyle(
                       fontSize: 14,
-                      color: Colors.white,
+                      color: Color(0xFF070F2B),
                       fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
@@ -166,7 +166,7 @@ class _DemoPageState extends State<DetailPage> {
                   "Action",
                   style: TextStyle(
                       fontSize: 14,
-                      color: Colors.white,
+                      color: Color(0xFF070F2B),
                       fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
@@ -176,7 +176,7 @@ class _DemoPageState extends State<DetailPage> {
                   "Comedy",
                   style: TextStyle(
                       fontSize: 14,
-                      color: Colors.white,
+                      color: Color(0xFF070F2B),
                       fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
@@ -186,7 +186,7 @@ class _DemoPageState extends State<DetailPage> {
                   "Thriller",
                   style: TextStyle(
                       fontSize: 14,
-                      color: Colors.white,
+                      color: Color(0xFF070F2B),
                       fontWeight: FontWeight.bold),
                 ),
               ],
@@ -200,8 +200,8 @@ class _DemoPageState extends State<DetailPage> {
                 onPressed: () {},
                 child: Text("Add to watchlist"),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.white, // Background color
-                  onPrimary: Color(0xFF070F2B), // Text color
+                  primary: Color(0xFF176B87), // Background color
+                  onPrimary: Colors.white, // Text color
                   padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -231,7 +231,7 @@ class _DemoPageState extends State<DetailPage> {
                   "Cast",
                   style: TextStyle(
                       fontSize: 20,
-                      color: Colors.white,
+                      color: Color(0xFF070F2B),
                       fontWeight: FontWeight.bold),
                 )
               ],
