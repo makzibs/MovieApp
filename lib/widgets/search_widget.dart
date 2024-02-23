@@ -13,7 +13,7 @@ class _SearchWidgetState extends State<SearchWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: 60,
       child: Padding(
         padding: const EdgeInsets.only(left: 32, right: 32),
         child: TextField(
