@@ -25,24 +25,23 @@ class _SearchWidgetState extends State<SearchWidget> {
             hintText: widget.text,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30.0),
-              borderSide: BorderSide(color: Color(0xFF176B87), width: 4),
+              borderSide: BorderSide(color: Color(0xFF176B87), width: 0),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(30.0),
-              borderSide: BorderSide(color: Color(0xFF176B87), width: 4),
+              borderSide: BorderSide(color: Color(0xFF176B87), width: 0),
             ),
             hintStyle: TextStyle(
-              color: Color(0xFF070F2B),
+              color: Colors.white,
               fontSize: 15,
             ),
             suffixIcon: Icon(
               Icons.search,
               size: 30,
-              color: Color(0xFF070F2B),
+              color: Colors.white,
             ),
-
-            /* filled: true,
-            fillColor: Color(0xFF9BB8CD), */
+            filled: true,
+            fillColor: Color(0xFF9BB8CD),
           ),
         ),
       ),

@@ -1,3 +1,5 @@
+import 'package:your_movie_app/models/movie.dart';
+
 class StaticValue {
   static String apikey = "c14c15c28109f082c13fc95d04b65361";
   static String ReadAccessToken =
@@ -5,4 +7,5 @@ class StaticValue {
 
   static const String baseUrl = "https://api.themoviedb.org/3";
   static const String imageBaseUrl = "https://image.tmdb.org/t/p/w500";
+  static Results? selectedMovie = null;
 }

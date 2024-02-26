@@ -7,18 +7,29 @@ class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 
   @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
+  State<BottomNavBar> createState() => BottomNavBarState();
 }
 
-class _BottomNavBarState extends State<BottomNavBar> {
-  int currentIndex = 0;
+class BottomNavBarState extends State<BottomNavBar> {
+  static PageController pageController = PageController();
+  static int currentIndex = 0;
+
   final screens = [HomePage(), DetailPage(), HomePage(), HomePage()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: screens[currentIndex],
+      // body: screens[currentIndex],
+      body: PageView(
+        controller: pageController,
+        onPageChanged: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        children: [HomePage(), DetailPage(), HomePage(), HomePage()],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
@@ -47,6 +58,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
         onTap: (index) {
           setState(() {
             currentIndex = index;
+            BottomNavBarState.pageController.animateToPage(index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut);
           });
         },
       ),
