@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:your_movie_app/bottomnav.dart';
 import 'package:your_movie_app/models/movie.dart';
+import 'package:your_movie_app/models/upcomingmovies.dart';
 import 'package:your_movie_app/services/get_movies.dart';
 import 'package:your_movie_app/static.dart';
 import 'package:your_movie_app/widgets/search_widget.dart';
@@ -22,7 +23,7 @@ class HomePageState extends State<HomePage> {
         duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
   }
 
-  static void fromMovieData(Results selectedMovie) {
+  void fromMovieData(Results selectedMovie) {
     StaticValue.selectedMovie = selectedMovie;
   }
 
@@ -83,7 +84,7 @@ class HomePageState extends State<HomePage> {
               width: 10,
             ),
             Text(
-              moviedata!.voteAverage!.toStringAsFixed(1).toString(),
+              moviedata.voteAverage!.toStringAsFixed(1).toString(),
               style: TextStyle(
                 fontSize: 18,
                 color: Color(0xFF070F2B),

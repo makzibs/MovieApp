@@ -1,4 +1,4 @@
-import 'package:your_movie_app/models/movie.dart';
+import 'package:your_movie_app/models/upcomingmovies.dart';
 
 class StaticValue {
   static String apikey = "c14c15c28109f082c13fc95d04b65361";

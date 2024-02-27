@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:your_movie_app/home.dart';
+import 'package:your_movie_app/models/upcomingmovies.dart';
+import 'package:your_movie_app/services/get_movies.dart';
 import 'package:your_movie_app/static.dart';
 
 class DetailPage extends StatefulWidget {
@@ -10,41 +12,59 @@ class DetailPage extends StatefulWidget {
   State<DetailPage> createState() => _DemoPageState();
 }
 
-StaticPoster() {
-  return Card(
-      elevation: 10,
-      shape: RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.circular(10), // Rounds the corners of the card
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12.0),
-        child: Image.network(
-          '${StaticValue.imageBaseUrl}${StaticValue.selectedMovie!.posterPath}',
-          fit: BoxFit.cover,
-          width: 150,
-        ),
-      ));
-}
-
-HorizontalPoster() {
-  return Card(
-      elevation: 10,
-      shape: RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.circular(10), // Rounds the corners of the card
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12.0),
-        child: Image.asset(
-          'assets/Joker.jpg',
-          fit: BoxFit.cover,
-          width: 140,
-        ),
-      ));
-}
-
 class _DemoPageState extends State<DetailPage> {
+  late Future<TopRated?> _futuremoviesdata;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getfuturemoviesdata();
+  }
+
+  getfuturemoviesdata() {
+    _futuremoviesdata = MovieService.fetchTopRatedMovies();
+  }
+
+  void fromTopMovieData(Results? selectedTopMovie) {
+    setState(() {
+      StaticValue.selectedMovie = selectedTopMovie;
+    });
+  }
+
+  StaticPoster() {
+    return Card(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.circular(10), // Rounds the corners of the card
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12.0),
+          child: Image.network(
+            '${StaticValue.imageBaseUrl}${StaticValue.selectedMovie!.posterPath}',
+            fit: BoxFit.cover,
+            width: 150,
+          ),
+        ));
+  }
+
+  HorizontalPoster(Results moviedata) {
+    return Card(
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.circular(10), // Rounds the corners of the card
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12.0),
+          child: Image.network(
+            '${StaticValue.imageBaseUrl}${moviedata.posterPath}',
+            fit: BoxFit.cover,
+            width: 140,
+          ),
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -146,13 +166,14 @@ class _DemoPageState extends State<DetailPage> {
                     Container(
                       width: size.width * 0.4,
                       child: Text(
-                        "During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure.",
+                        //"During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure.",
+                        StaticValue.selectedMovie!.overview!,
                         style: TextStyle(
                           fontSize: 14,
                           color: Color(0xFF070F2B),
                         ),
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 14,
+                        maxLines: 11,
                         softWrap: true,
                       ),
                     )
@@ -240,7 +261,7 @@ class _DemoPageState extends State<DetailPage> {
                     width: 20,
                   ),
                   Text(
-                    "Cast",
+                    "Top Rated Movies",
                     style: TextStyle(
                         fontSize: 20,
                         color: Color(0xFF070F2B),
@@ -249,27 +270,74 @@ class _DemoPageState extends State<DetailPage> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-              ),
-              child: Container(
-                width: size.width,
-                child: Text(
-                  "TOP SERIES CAST",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Color(0xFF070F2B),
-                  ),
-                ),
-              ),
+            SizedBox(
+              height: 10,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 16,
               ),
-              child: Container(
-                height: size.height * 0.18,
+              child: FutureBuilder<TopRated?>(
+                  future: _futuremoviesdata,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<TopRated?> snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.none:
+                        return Container(
+                            // chid text // no internet or server error
+                            );
+                      case ConnectionState.waiting:
+                        return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 50, // Specify the width
+                                height: 50, // Specify the height
+
+                                child: CircularProgressIndicator(),
+                              ),
+                            ]);
+                      case ConnectionState.done:
+                        var data = snapshot.data;
+                        if (data != null) {
+                          return Container(
+                            height: size.height * 0.22,
+                            width: size.width,
+                            child: ListView.builder(
+                              itemCount: data.results!.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      fromTopMovieData(data.results![index]);
+                                    });
+                                  },
+                                  child: HorizontalPoster(data.results![index]),
+                                );
+                              },
+                            ),
+                          );
+                        } else {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 50, // Specify the width
+                                height: 50, // Specify the height
+
+                                child: CircularProgressIndicator(),
+                              ),
+                            ],
+                          );
+                        }
+
+                      default:
+                        return Container(); // error //page
+                    }
+                  }),
+              /* child: Container(
+                height: size.height * 0.22,
                 width: size.width,
                 child: ListView.builder(
                   itemCount: 6,
@@ -278,7 +346,7 @@ class _DemoPageState extends State<DetailPage> {
                     return HorizontalPoster();
                   },
                 ),
-              ),
+              ), */
             )
           ],
         ),
