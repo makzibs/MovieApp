@@ -34,7 +34,7 @@ class HomePageState extends State<HomePage> {
       children: [
         GestureDetector(
           onTap: () {
-            onanimateto(1);
+            onanimateto(2);
             fromMovieData(moviedata); // Assuming the DetailPage is at index 1
           },
           child: Card(
@@ -230,7 +230,7 @@ class HomePageState extends State<HomePage> {
                                 height: size.height * 0.67,
                                 width: size.width / 1.1,
                                 child: CarouselSlider.builder(
-                                  itemCount: data!.results!.length,
+                                  itemCount: data.results!.length,
 
                                   //scrollDirection: Axis.horizontal,
                                   itemBuilder: (context, index, realIndex) {

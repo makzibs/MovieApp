@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:your_movie_app/bottomnav.dart';
 import 'package:your_movie_app/detail.dart';
 import 'package:your_movie_app/home.dart';
+import 'package:your_movie_app/search.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +20,10 @@ class MyApp extends StatelessWidget {
       routes: {
         'home': (context) => HomePage(),
         'detail': (context) => DetailPage(),
-        'bottomnav': (context) => BottomNavBar()
+        'bottomnav': (context) => BottomNavBar(),
+        'search': (context) => SearchWidgetPage(
+              text: "Godfather",
+            ),
       },
       debugShowCheckedModeBanner: false,
     );

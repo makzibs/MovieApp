@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:your_movie_app/detail.dart';
 import 'package:your_movie_app/home.dart';
-import 'package:your_movie_app/home.dart';
+import 'package:your_movie_app/search.dart';
+import 'package:your_movie_app/widgets/search_widget.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -14,7 +15,12 @@ class BottomNavBarState extends State<BottomNavBar> {
   static PageController pageController = PageController();
   static int currentIndex = 0;
 
-  final screens = [HomePage(), DetailPage(), HomePage(), HomePage()];
+  final screens = [
+    HomePage(),
+    SearchWidgetPage(text: "Godfather"),
+    DetailPage(),
+    HomePage()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +34,12 @@ class BottomNavBarState extends State<BottomNavBar> {
             currentIndex = index;
           });
         },
-        children: [HomePage(), DetailPage(), HomePage(), HomePage()],
+        children: [
+          HomePage(),
+          SearchWidgetPage(text: "Godfather"),
+          DetailPage(),
+          HomePage()
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
