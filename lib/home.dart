@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:your_movie_app/bottomnav.dart';
 import 'package:your_movie_app/models/movie.dart';
+import 'package:your_movie_app/models/moviesId.dart';
 import 'package:your_movie_app/models/upcomingmovies.dart';
 import 'package:your_movie_app/services/get_movies.dart';
 import 'package:your_movie_app/static.dart';
@@ -22,8 +23,9 @@ class HomePageState extends State<HomePage> {
         duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
   }
 
-  void fromMovieData(Results selectedMovie) {
+  void fromMovieData(Results selectedMovie) async {
     StaticValue.selectedMovie = selectedMovie;
+    //MoviesDetails moviesDetails  = await MovieService.fetchMovieId(selectedMovie.id!);
   }
 
   movingPoster(context, Results moviedata) {
@@ -32,8 +34,12 @@ class HomePageState extends State<HomePage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         GestureDetector(
-          onTap: () {
-            onanimateto(2);
+          onTap: () async {
+            // onanimateto(2);
+            MoviesDetails moviesDetails =
+                await MovieService.fetchMovieId(moviedata.id!);
+
+            Navigator.pushNamed(context, 'detail', arguments: moviesDetails);
             fromMovieData(moviedata); // Assuming the DetailPage is at index 1
           },
           child: Card(
@@ -168,7 +174,7 @@ class HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Color(0xFF176B87),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(60),
+          preferredSize: Size.fromHeight(80),
           child: Column(
             children: [
               Row(
@@ -197,9 +203,20 @@ class HomePageState extends State<HomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CircleAvatar(
-                      radius: 30, // Radius of the circle
-                      backgroundImage: AssetImage('assets/profile.jpg'),
+                    Container(
+                      padding: EdgeInsets.all(
+                          2), // Add padding to create space for the border
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.white, // Border color
+                          width: 2, // Border width
+                        ),
+                      ),
+                      child: CircleAvatar(
+                        radius: 30, // Radius of the circle
+                        backgroundImage: AssetImage('assets/profile.jpg'),
+                      ),
                     ),
                     GestureDetector(
                       onTap: () {

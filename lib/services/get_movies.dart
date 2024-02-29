@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:your_movie_app/models/moviesId.dart';
 import 'package:your_movie_app/models/searchedMovies.dart';
 import 'package:your_movie_app/models/upcomingmovies.dart';
 //import 'dart:convert’;
@@ -52,6 +53,21 @@ class MovieService {
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final moviedata = searchedMovies.fromJson(data);
+      return moviedata;
+    } else {
+      throw Exception('Failed to fetch the movies');
+    }
+  }
+
+  static Future<MoviesDetails> fetchMovieId(int movieId) async {
+    final response = await http.get(
+      Uri.parse(
+        '${StaticValue.baseUrl}/movie/${movieId}?api_key=${StaticValue.apikey}',
+      ),
+    );
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final moviedata = MoviesDetails.fromJson(data);
       return moviedata;
     } else {
       throw Exception('Failed to fetch the movies');

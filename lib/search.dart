@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:your_movie_app/home.dart';
+import 'package:your_movie_app/models/moviesId.dart';
+
 import 'package:your_movie_app/models/searchedMovies.dart';
 
 import 'package:your_movie_app/services/get_movies.dart';
@@ -70,7 +71,7 @@ class _SearchWidgetState extends State<SearchWidgetPage> {
                   fontSize: 15,
                 ),
                 decoration: InputDecoration(
-                  hintText: widget.text,
+                  hintText: "search here",
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30.0),
                     borderSide: BorderSide(color: Color(0xFF176B87), width: 0),
@@ -107,7 +108,7 @@ class _SearchWidgetState extends State<SearchWidgetPage> {
                     snapshot.data; // Assuming Suggestion is your data model
                 return Center(
                   child: Container(
-                    height: MediaQuery.of(context).size.height,
+                    height: MediaQuery.of(context).size.height * 0.7,
                     width: MediaQuery.of(context).size.width,
                     child: ListView.builder(
                       shrinkWrap: true,
@@ -117,10 +118,15 @@ class _SearchWidgetState extends State<SearchWidgetPage> {
                         return ListTile(
                           title: Text(suggestion.title!,
                               style: TextStyle(color: Color(0xFF070F2B))),
-                          onTap: () {
-                            StaticValue.selectedMovie =
-                                _suggestions.results![index];
-                            HomePageState.onanimateto(2);
+                          onTap: () async {
+                            StaticValue.selectedMovie = suggestion;
+                            MoviesDetails moviesDetails =
+                                await MovieService.fetchMovieId(suggestion.id!);
+                            setState(() {
+                              //_suggestions.results![index];
+                            });
+                            Navigator.pushNamed(context, 'detail',
+                                arguments: moviesDetails);
                             // TODO: Navigate to movie details or fill the search bar with the movie name, etc.
                           },
                         );

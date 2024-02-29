@@ -3,6 +3,7 @@ import 'package:your_movie_app/bottomnav.dart';
 import 'package:your_movie_app/detail.dart';
 import 'package:your_movie_app/home.dart';
 import 'package:your_movie_app/search.dart';
+import 'package:your_movie_app/watchedlist.dart';
 import 'package:your_movie_app/widgets/profile.dart';
 
 void main() {
@@ -23,9 +24,10 @@ class MyApp extends StatelessWidget {
         'detail': (context) => DetailPage(),
         'bottomnav': (context) => BottomNavBar(),
         'search': (context) => SearchWidgetPage(
-              text: "Godfather",
+              text: "Search your movie",
             ),
         'profile': (context) => profilePage(),
+        'watchlist': (context) => MyWatchList(),
       },
       debugShowCheckedModeBanner: false,
     );

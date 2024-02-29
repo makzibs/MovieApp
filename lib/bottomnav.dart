@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:your_movie_app/detail.dart';
 import 'package:your_movie_app/home.dart';
 import 'package:your_movie_app/search.dart';
+import 'package:your_movie_app/watchedlist.dart';
 import 'package:your_movie_app/widgets/profile.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -18,7 +19,7 @@ class BottomNavBarState extends State<BottomNavBar> {
   final screens = [
     HomePage(),
     SearchWidgetPage(text: "Godfather"),
-    DetailPage(),
+    MyWatchList(),
     profilePage(),
   ];
 
@@ -37,7 +38,7 @@ class BottomNavBarState extends State<BottomNavBar> {
         children: [
           HomePage(),
           SearchWidgetPage(text: "Godfather"),
-          DetailPage(),
+          MyWatchList(),
           profilePage(),
         ],
       ),
@@ -55,7 +56,7 @@ class BottomNavBarState extends State<BottomNavBar> {
             backgroundColor: Color(0xFF176B87),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add_shopping_cart),
+            icon: Icon(Icons.add),
             label: 'profile',
             backgroundColor: Color(0xFF176B87),
           ),

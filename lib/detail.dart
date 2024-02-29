@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:your_movie_app/home.dart';
+import 'package:your_movie_app/models/moviesId.dart';
 import 'package:your_movie_app/models/upcomingmovies.dart';
 import 'package:your_movie_app/services/get_movies.dart';
 import 'package:your_movie_app/static.dart';
@@ -13,6 +13,7 @@ class DetailPage extends StatefulWidget {
 
 class _DemoPageState extends State<DetailPage> {
   late Future<TopRated?> _futuremoviesdata;
+  MoviesDetails moviesDetails = MoviesDetails();
   @override
   void initState() {
     // TODO: implement initState
@@ -49,19 +50,42 @@ class _DemoPageState extends State<DetailPage> {
 
   HorizontalPoster(Results moviedata) {
     return Card(
-        elevation: 10,
+        color: Color(0xFF176B87),
+        elevation: 6,
         shape: RoundedRectangleBorder(
           borderRadius:
               BorderRadius.circular(10), // Rounds the corners of the card
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12.0),
-          child: Image.network(
-            '${StaticValue.imageBaseUrl}${moviedata.posterPath}',
-            fit: BoxFit.cover,
-            width: 140,
+          child: Column(
+            children: [
+              Image.network(
+                '${StaticValue.imageBaseUrl}${moviedata.posterPath}',
+                fit: BoxFit.cover,
+                width: 140,
+              ),
+              Container(
+                  width: 120,
+                  child: Text(
+                    moviedata.title!,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.white,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    softWrap: true,
+                  )),
+            ],
           ),
         ));
+  }
+
+  @override
+  void didChangeDependencies() {
+    moviesDetails = ModalRoute.of(context)!.settings.arguments as MoviesDetails;
+    super.didChangeDependencies();
   }
 
   @override
@@ -69,7 +93,7 @@ class _DemoPageState extends State<DetailPage> {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
-        color: Color(0xFFEEF5FF),
+        color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           //crossAxisAlignment: CrossAxisAlignment.center,
@@ -84,7 +108,8 @@ class _DemoPageState extends State<DetailPage> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        HomePageState.onanimateto(0);
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, 'bottomnav', (route) => false);
                       },
                       child: Container(
                         child: Icon(
@@ -97,12 +122,18 @@ class _DemoPageState extends State<DetailPage> {
                     SizedBox(
                       width: 60,
                     ),
-                    Text(
-                      StaticValue.selectedMovie!.title!,
-                      style: TextStyle(
-                          fontSize: 24,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      child: Text(
+                        StaticValue.selectedMovie!.title!,
+                        style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        softWrap: true,
+                      ),
                     ),
                   ],
                 ),
@@ -119,12 +150,21 @@ class _DemoPageState extends State<DetailPage> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      StaticValue.selectedMovie!.title!,
-                      style: TextStyle(
-                          fontSize: 24,
-                          color: Color(0xFF070F2B),
-                          fontWeight: FontWeight.bold),
+                    Container(
+                      width: size.width * 0.9,
+                      child: Text(
+                        StaticValue.selectedMovie!.title!,
+                        style: TextStyle(
+                            fontSize: 24,
+                            color: Color(0xFF070F2B),
+                            fontWeight: FontWeight.bold),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        softWrap: true,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     Row(
                       children: [
@@ -139,7 +179,7 @@ class _DemoPageState extends State<DetailPage> {
                           width: 30,
                         ),
                         Text(
-                          "1h 56m",
+                          "${moviesDetails.runtime.toString()} mins",
                           style: TextStyle(
                             fontSize: 18,
                             color: Color(0xFF070F2B),
@@ -154,74 +194,108 @@ class _DemoPageState extends State<DetailPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Container(
-                height: 250,
+                // decoration: BoxDecoration(
+                //   color: Colors.green,
+                // ),
+                height: 300,
                 width: size.width,
-                child: (Row(
+                child: Column(
                   children: [
-                    StaticPoster(),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Container(
-                      width: size.width * 0.4,
-                      child: Text(
-                        //"During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure.",
-                        StaticValue.selectedMovie!.overview!,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFF070F2B),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        StaticPoster(),
+                        SizedBox(
+                          width: 10,
                         ),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 11,
-                        softWrap: true,
-                      ),
-                    )
+                        Container(
+                          width: size.width * 0.5,
+                          child: Text(
+                            //"During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure.",
+                            StaticValue.selectedMovie!.overview!,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Color(0xFF070F2B),
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 11,
+                            softWrap: true,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 14,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 70,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Color(0xFF070F2B),
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "IMDb",
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Color(0xFF070F2B),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          StaticValue.selectedMovie!.voteAverage!
+                              .toStringAsFixed(1)
+                              .toString(),
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Color(0xFF070F2B),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
-                )),
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                children: [
-                  Text(
-                    "Spy",
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: Color(0xFF070F2B),
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    "Action",
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: Color(0xFF070F2B),
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    "Comedy",
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: Color(0xFF070F2B),
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    "Thriller",
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: Color(0xFF070F2B),
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
+              child: Container(
+                width: size.width,
+                height: 20,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: moviesDetails.genres!.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: Text(
+                              moviesDetails.genres![index].name!,
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xFF070F2B),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(
@@ -300,16 +374,22 @@ class _DemoPageState extends State<DetailPage> {
                         var data = snapshot.data;
                         if (data != null) {
                           return Container(
-                            height: size.height * 0.22,
+                            height: size.height * 0.265,
                             width: size.width,
                             child: ListView.builder(
                               itemCount: data.results!.length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: () {
+                                  onTap: () async {
+                                    // onanimateto(2);
+                                    MoviesDetails newMoviesDetails =
+                                        await MovieService.fetchMovieId(
+                                            data.results![index].id!.toInt());
+
                                     setState(() {
                                       fromTopMovieData(data.results![index]);
+                                      moviesDetails = newMoviesDetails;
                                     });
                                   },
                                   child: HorizontalPoster(data.results![index]),
@@ -335,17 +415,6 @@ class _DemoPageState extends State<DetailPage> {
                         return Container(); // error //page
                     }
                   }),
-              /* child: Container(
-                height: size.height * 0.22,
-                width: size.width,
-                child: ListView.builder(
-                  itemCount: 6,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return HorizontalPoster();
-                  },
-                ),
-              ), */
             )
           ],
         ),
