@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:your_movie_app/detail.dart';
 import 'package:your_movie_app/home.dart';
 import 'package:your_movie_app/search.dart';
-import 'package:your_movie_app/widgets/search_widget.dart';
+import 'package:your_movie_app/widgets/profile.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -19,7 +19,7 @@ class BottomNavBarState extends State<BottomNavBar> {
     HomePage(),
     SearchWidgetPage(text: "Godfather"),
     DetailPage(),
-    HomePage()
+    profilePage(),
   ];
 
   @override
@@ -38,7 +38,7 @@ class BottomNavBarState extends State<BottomNavBar> {
           HomePage(),
           SearchWidgetPage(text: "Godfather"),
           DetailPage(),
-          HomePage()
+          profilePage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -66,6 +66,7 @@ class BottomNavBarState extends State<BottomNavBar> {
           ),
         ],
         currentIndex: currentIndex,
+        showSelectedLabels: false,
         onTap: (index) {
           setState(() {
             currentIndex = index;

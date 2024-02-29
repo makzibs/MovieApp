@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:your_movie_app/home.dart';
 import 'package:your_movie_app/models/upcomingmovies.dart';

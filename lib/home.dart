@@ -5,7 +5,6 @@ import 'package:your_movie_app/models/movie.dart';
 import 'package:your_movie_app/models/upcomingmovies.dart';
 import 'package:your_movie_app/services/get_movies.dart';
 import 'package:your_movie_app/static.dart';
-import 'package:your_movie_app/widgets/search_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -47,7 +46,7 @@ class HomePageState extends State<HomePage> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
                 child: Image.network(
-                  '${StaticValue.imageBaseUrl}${moviedata!.posterPath}',
+                  '${StaticValue.imageBaseUrl}${moviedata.posterPath}',
                   fit: BoxFit.cover,
                   height: 438,
                   width: 280,
@@ -97,15 +96,18 @@ class HomePageState extends State<HomePage> {
         ),
         Row(
           children: [
-            Text(
-              moviedata.title!,
-              style: TextStyle(
-                  fontSize: 18,
-                  color: Color(0xFF070F2B),
-                  fontWeight: FontWeight.bold),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              softWrap: true,
+            Container(
+              width: MediaQuery.of(context).size.width / 1.75,
+              child: Text(
+                moviedata.title!,
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Color(0xFF070F2B),
+                    fontWeight: FontWeight.bold),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                softWrap: true,
+              ),
             ),
           ],
         ),
@@ -164,15 +166,55 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Color(0xFFEEF5FF),
       appBar: AppBar(
-        titleSpacing: 0,
-        backgroundColor: Color(0xFFEEF5FF),
-        toolbarHeight: 60,
-        title: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 32,
-          ),
-          child: SearchWidget(
-            text: "Search",
+        backgroundColor: Color(0xFF176B87),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(60),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "My",
+                    style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    "Movies",
+                    style: TextStyle(
+                      fontSize: 28,
+                      color: Color(0xFF070F2B),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CircleAvatar(
+                      radius: 30, // Radius of the circle
+                      backgroundImage: AssetImage('assets/profile.jpg'),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        onanimateto(1);
+                      },
+                      child: Icon(
+                        Icons.search,
+                        size: 40,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -180,7 +222,7 @@ class HomePageState extends State<HomePage> {
         height: size.height * 0.8,
         width: size.width,
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
           child: Column(
             //mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,

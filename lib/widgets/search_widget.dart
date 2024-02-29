@@ -41,7 +41,7 @@ class _SearchWidgetState extends State<SearchWidget> {
               color: Colors.white,
             ),
             filled: true,
-            fillColor: Color(0xFF9BB8CD),
+            fillColor: Color(0xFF176B87),
           ),
         ),
       ),
