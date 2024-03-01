@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:your_movie_app/models/moviesId.dart';
 import 'package:your_movie_app/models/upcomingmovies.dart';
 import 'package:your_movie_app/services/get_movies.dart';
+
 import 'package:your_movie_app/static.dart';
 
 class DetailPage extends StatefulWidget {
   DetailPage({super.key});
 
   @override
-  State<DetailPage> createState() => _DemoPageState();
+  State<DetailPage> createState() => DemoPageState();
 }
 
-class _DemoPageState extends State<DetailPage> {
+class DemoPageState extends State<DetailPage> {
   late Future<TopRated?> _futuremoviesdata;
+  static List<Results> watchListedMov = [];
   MoviesDetails moviesDetails = MoviesDetails();
   @override
   void initState() {
@@ -29,6 +31,10 @@ class _DemoPageState extends State<DetailPage> {
     setState(() {
       StaticValue.selectedMovie = selectedTopMovie;
     });
+  }
+
+  static void addMovie(Results results) {
+    watchListedMov.add(results);
   }
 
   StaticPoster() {
@@ -300,17 +306,33 @@ class _DemoPageState extends State<DetailPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Container(
-                width: size.width,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text("Add to watchlist"),
-                  style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF176B87), // Background color
-                    onPrimary: Colors.white, // Text color
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+              child: GestureDetector(
+                onTap: () {
+                  // addMovie(StaticValue.selectedMovie!);
+                  // Navigator.pushNamed(
+                  //   context,
+                  //   'watchlist',
+                  // );
+                },
+                child: Container(
+                  width: size.width,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      addMovie(StaticValue.selectedMovie!);
+                      Navigator.pushNamed(
+                        context,
+                        'watchlist',
+                      );
+                    },
+                    child: Text("Add to watchlist"),
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF176B87), // Background color
+                      onPrimary: Colors.white, // Text color
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
                   ),
                 ),
