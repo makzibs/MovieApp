@@ -93,12 +93,12 @@ class _MyWidgetState extends State<MyWatchList> {
                         _deleteMovie(_watchListedMovies[index]);
                       },
                       child: Container(
-                        child: Text(
-                          "Remove",
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Color(0xFF176B87),
-                              fontWeight: FontWeight.w100),
+                        width: 20,
+                        child: Icon(
+                          Icons.delete,
+                          size: 24, // Adjust the size as needed
+                          color:
+                              Color(0xFF176B87), // Adjust the color as needed
                         ),
                       ))
                 ],
