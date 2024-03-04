@@ -6,6 +6,7 @@ import 'package:your_movie_app/models/moviesId.dart';
 import 'package:your_movie_app/models/upcomingmovies.dart';
 import 'package:your_movie_app/services/get_movies.dart';
 import 'package:your_movie_app/static.dart';
+import 'package:your_movie_app/widgets/uihelper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -177,26 +178,7 @@ class HomePageState extends State<HomePage> {
           preferredSize: Size.fromHeight(80),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "My",
-                    style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Text(
-                    "Movies",
-                    style: TextStyle(
-                      fontSize: 28,
-                      color: Color(0xFF070F2B),
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+              UiHelper.AppLogo(),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 32, vertical: 8),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:your_movie_app/Login.dart';
 import 'package:your_movie_app/bottomnav.dart';
 import 'package:your_movie_app/detail.dart';
 import 'package:your_movie_app/home.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Your Movie App',
-      initialRoute: 'bottomnav',
+      initialRoute: 'login',
       theme: ThemeData(fontFamily: 'Poppins'),
       routes: {
         'home': (context) => HomePage(),
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
             ),
         'profile': (context) => profilePage(),
         'watchlist': (context) => MyWatchList(),
+        'login': (context) => LoginPage(),
       },
       debugShowCheckedModeBanner: false,
     );
