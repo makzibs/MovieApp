@@ -3,14 +3,14 @@ import 'package:your_movie_app/widgets/custompasswordtextfield.dart';
 import 'package:your_movie_app/widgets/uihelper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   final _auth = FirebaseAuth.instance;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -53,18 +53,15 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                UiHelper.CustomButton("Login", () async {
+                UiHelper.CustomButton("Signup", () async {
                   try {
-                    final currentUser = await _auth.signInWithEmailAndPassword(
+                    final NewUser = await _auth.createUserWithEmailAndPassword(
                         email: emailController.text,
                         password: passwordController.text);
                     Navigator.pushNamed(context, 'bottomnav');
                   } catch (e) {
                     print(e);
                   }
-                }),
-                UiHelper.CustomButton("Signup", () async {
-                  Navigator.pushNamed(context, "signup");
                 }),
               ],
             ),

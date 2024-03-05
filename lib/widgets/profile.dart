@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:your_movie_app/home.dart';
+import 'package:your_movie_app/widgets/uihelper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class profilePage extends StatefulWidget {
   const profilePage({super.key});
@@ -129,7 +131,7 @@ class profilePageState extends State<profilePage> {
                           Text(
                             "School",
                             style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.w300),
+                                fontSize: 18, fontWeight: FontWeight.w300),
                           ),
                           Text(
                             "Tampere University",
@@ -161,7 +163,7 @@ class profilePageState extends State<profilePage> {
                           Text(
                             "Nick Name",
                             style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.w300),
+                                fontSize: 18, fontWeight: FontWeight.w300),
                           ),
                           Text(
                             "Mak",
@@ -193,7 +195,7 @@ class profilePageState extends State<profilePage> {
                           Text(
                             "Phone Number",
                             style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.w300),
+                                fontSize: 18, fontWeight: FontWeight.w300),
                           ),
                           Text(
                             "+358413170401",
@@ -201,8 +203,17 @@ class profilePageState extends State<profilePage> {
                                 fontSize: 14, fontWeight: FontWeight.w100),
                           )
                         ],
-                      )
+                      ),
                     ],
+                  ),
+                  UiHelper.CustomButton(
+                    "Logout",
+                    () async {
+                      await FirebaseAuth.instance.signOut();
+                      Navigator.pushNamed(context, 'login');
+                    },
+                    color: Color(0xFF176B87),
+                    textcolor: Colors.white,
                   ),
                 ],
               ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:your_movie_app/models/moviesId.dart';
 import 'package:your_movie_app/models/upcomingmovies.dart';
 import 'package:your_movie_app/services/get_movies.dart';
-
 import 'package:your_movie_app/static.dart';
 
 class DetailPage extends StatefulWidget {

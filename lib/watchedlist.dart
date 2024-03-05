@@ -126,8 +126,10 @@ class _MyWidgetState extends State<MyWatchList> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
                       // HomePageState.onanimateto(0);
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, 'bottomnav', (route) => false);
                     },
                     child: Container(
                       child: Icon(
