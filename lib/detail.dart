@@ -325,8 +325,8 @@ class DemoPageState extends State<DetailPage> {
                     },
                     child: Text("Add to watchlist"),
                     style: ElevatedButton.styleFrom(
-                      primary: Color(0xFF176B87), // Background color
-                      onPrimary: Colors.white, // Text color
+                      foregroundColor: Colors.white,
+                      backgroundColor: Color(0xFF176B87), // Text color
                       padding:
                           EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                       shape: RoundedRectangleBorder(

@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:your_movie_app/models/moviesId.dart';
 import 'package:your_movie_app/models/searchedMovies.dart';
 import 'package:your_movie_app/models/upcomingmovies.dart';
-//import 'dart:convert’;
 
 import 'package:your_movie_app/static.dart';
 import 'package:your_movie_app/models/movie.dart';
